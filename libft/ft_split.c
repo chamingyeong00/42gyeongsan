@@ -88,7 +88,7 @@ char	**fill_result(char *s, char c, char **result, int k)
 		else
 			s++;
 	}
-	result[i] = '\0';
+	result[i] = NULL;
 	return (result);
 }
 

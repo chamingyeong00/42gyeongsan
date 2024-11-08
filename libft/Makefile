@@ -26,7 +26,7 @@ bonus: $(OBJECTS) $(BOBJECTS)
 	$(AR) -rcs $(NAME) $?
 
 %.o: %.c
-	$(CC) -c $(CFLAGS) $?
+	$(CC) $(CFLAGS) -c $?
 
 clean:
 	rm -f $(OBJECTS) $(BOBJECTS)
@@ -36,4 +36,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all bonus clean fclean re
+.PHONY: all clean fclean re
