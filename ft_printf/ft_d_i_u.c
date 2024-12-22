@@ -1,29 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_striteri.c                                      :+:      :+:    :+:   */
+/*   ft_d_i_u.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: micha <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/12 15:15:15 by micha             #+#    #+#             */
-/*   Updated: 2024/10/12 15:15:17 by micha            ###   ########.fr       */
+/*   Created: 2024/12/22 12:52:56 by micha             #+#    #+#             */
+/*   Updated: 2024/12/22 12:52:57 by micha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_striteri(char *s, void (*f)(unsigned int, char*))
+int ft_putnbr(long long int num)
 {
-	unsigned int	len;
-	unsigned int	i;
+	long long int	len;
+	long long int	divisor;
+	long long int 	n;
 
-	i = 0;
-	if (!s || !f)
-		return ;
-	len = ft_strlen(s);
-	while (i < len)
-	{
-		(*f)(i, &s[i]);
-		i++;
+	divisor = 1;
+	len = 0;
+	if (num < 0){
+		len += 1;
+		ft_putchar('-');
 	}
+	n = num;
+	while (n >= 10){
+		divisor *= 10;
+		n = n/10;
+	}
+	n = num;
+	while (divisor > 0){
+		ft_putchar((n / divisor) + '0');
+		len += 1;
+		n %= divisor;
+		divisor /= 10;
+	}
+	return (len);
 }

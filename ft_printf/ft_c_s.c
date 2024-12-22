@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_c_s.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: micha <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/05 14:36:14 by micha             #+#    #+#             */
-/*   Updated: 2024/10/05 14:36:15 by micha            ###   ########.fr       */
+/*   Created: 2024/12/22 12:52:48 by micha             #+#    #+#             */
+/*   Updated: 2024/12/22 12:52:51 by micha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdlib.h>
+#include "ft_printf.h"
 
-char	*ft_strdup(const char *src)
+int	ft_putchar(char c)
 {
-	char	*temp;
-	int		i;
+	write(1, &c, 1);
+	return (1);
+}
 
-	i = 0;
-	temp = (char *)malloc(ft_strlen(src) * sizeof(char) + 1);
-	if (!temp)
-		return (0);
-	while (src[i] != '\0')
-	{
-		temp[i] = src[i];
-		i++;
+int	ft_putstr(char *s)
+{
+	int	len;
+	if (!s){//(*s)X
+		ft_putchar("(null)");
+		return (6);
+	}	
+	len = 0;
+	while (*s){
+		ft_putchar(*(s++));
+		len++;
 	}
-	temp[i] = '\0';
-	return (temp);
+	return (len);
 }
