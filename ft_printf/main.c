@@ -12,8 +12,8 @@
 
 #include "ft_printf.h"
 #include <limits.h>
-#include <stddef.h>
 #include <unistd.h>
+#include <stdio.h>
 
 void    resetColor() {
   printf("\033[0m");
@@ -56,8 +56,9 @@ int main()
 
     // Currently leaking print address (%p)
     // also leaking: %x
-    int ml =     ft_printf("Teasdasdasdsdst! %%%%%%%%%%%%%%%% %% %d %d %s %%%%%%%% Das ist ziemlich cool! %% %% %% test mich %u %i %p %x %s %d %p %p \n", int1, int2, "TEST ME", int3, int4, testpointer, int4, NULL, 4, NULL, NULL);
-    int pl =         printf("Teasdasdasdsdst! %%%%%%%%%%%%%%%% %% %d %d %s %%%%%%%% Das ist ziemlich cool! %% %% %% test mich %u %i %p %x %s %d %p %p \n", int1, int2, "TEST ME", int3, int4, testpointer, int4, NULL, 4, NULL, NULL);
+    
+    int ml =     ft_printf("%s %%%%%%%% Das ist ziemlich cool! %% %% %% test mich %u %i %p %x %s %d %p %p \n", "TEST ME", int3, int4, testpointer, int4, NULL, 4, NULL, NULL);
+    int pl =         printf("%s %%%%%%%% Das ist ziemlich cool! %% %% %% test mich %u %i %p %x %s %d %p %p \n", "TEST ME", int3, int4, testpointer, int4, NULL, 4, NULL, NULL);
     ft_add_checksum(ml, pl, &c_ft, &c_sys);
     int ml2 =    ft_printf("A %% AAA %d\n", 0);
     int pl2 =       printf("A %% AAA %d\n", 0);

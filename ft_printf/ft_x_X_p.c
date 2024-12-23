@@ -12,23 +12,22 @@
 
 #include "ft_printf.h"
 
-int ft_puthex(const char *format, void *num)
+int ft_puthex(const char *format, unsigned long long num)
 {
 	char			*base_digits1;
 	char			*base_digits2;
 	char			converted_number[64];
 	int				index;
-	int				len;
-	unsigned long	n;
+	unsigned long long				len;
 
-	n = (unsigned long)num;
 	base_digits1 = "0123456789abcdef";
 	base_digits2 = "0123456789ABCDEF";
 	index = 0;
-	
-	while(n != 0){
-		converted_number[index++] = n % 16;
-		n = n / 16;
+	if (num == 0)
+		return(ft_putchar('0'));
+	while(num != 0){
+		converted_number[index++] = num % 16;
+		num = num / 16;
 	}
 	len = index;
 	if (*format == 'x'){
