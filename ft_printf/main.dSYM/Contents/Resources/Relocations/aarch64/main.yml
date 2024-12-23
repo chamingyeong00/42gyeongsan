@@ -2,20 +2,17 @@
 triple:          'arm64-apple-darwin'
 binary-path:     main
 relocations:
-  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _resetColor, symObjAddr: 0x0, symBinAddr: 0x100002418, symSize: 0x1C }
-  - { offsetInCU: 0x41, offset: 0x41, size: 0x8, addend: 0x0, symName: _ft_add_checksum, symObjAddr: 0x1C, symBinAddr: 0x100002434, symSize: 0x118 }
-  - { offsetInCU: 0x66, offset: 0x66, size: 0x8, addend: 0x0, symName: _ft_add_checksum.test_id, symObjAddr: 0x1380, symBinAddr: 0x100008000, symSize: 0x0 }
-  - { offsetInCU: 0xB6, offset: 0xB6, size: 0x8, addend: 0x0, symName: _resetColor, symObjAddr: 0x0, symBinAddr: 0x100002418, symSize: 0x1C }
-  - { offsetInCU: 0xCB, offset: 0xCB, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x134, symBinAddr: 0x10000254C, symSize: 0xF08 }
-  - { offsetInCU: 0x26, offset: 0x6AE, size: 0x8, addend: 0x0, symName: _ft_unsigned_putnbr, symObjAddr: 0x0, symBinAddr: 0x100003454, symSize: 0x10C }
-  - { offsetInCU: 0x33, offset: 0x6BB, size: 0x8, addend: 0x0, symName: _ft_unsigned_putnbr, symObjAddr: 0x0, symBinAddr: 0x100003454, symSize: 0x10C }
-  - { offsetInCU: 0x85, offset: 0x70D, size: 0x8, addend: 0x0, symName: _ft_putnbr, symObjAddr: 0x10C, symBinAddr: 0x100003560, symSize: 0x150 }
-  - { offsetInCU: 0x26, offset: 0x7A1, size: 0x8, addend: 0x0, symName: _format_specifier_printf, symObjAddr: 0x0, symBinAddr: 0x1000036B0, symSize: 0x224 }
-  - { offsetInCU: 0x41, offset: 0x7BC, size: 0x8, addend: 0x0, symName: _format_specifier_printf, symObjAddr: 0x0, symBinAddr: 0x1000036B0, symSize: 0x224 }
-  - { offsetInCU: 0x77, offset: 0x7F2, size: 0x8, addend: 0x0, symName: _ft_printf, symObjAddr: 0x224, symBinAddr: 0x1000038D4, symSize: 0xBC }
-  - { offsetInCU: 0x26, offset: 0x892, size: 0x8, addend: 0x0, symName: _ft_putchar, symObjAddr: 0x0, symBinAddr: 0x100003990, symSize: 0x34 }
-  - { offsetInCU: 0x41, offset: 0x8AD, size: 0x8, addend: 0x0, symName: _ft_putchar, symObjAddr: 0x0, symBinAddr: 0x100003990, symSize: 0x34 }
-  - { offsetInCU: 0x69, offset: 0x8D5, size: 0x8, addend: 0x0, symName: _ft_putstr, symObjAddr: 0x34, symBinAddr: 0x1000039C4, symSize: 0xA8 }
-  - { offsetInCU: 0x26, offset: 0x93D, size: 0x8, addend: 0x0, symName: _ft_puthex, symObjAddr: 0x0, symBinAddr: 0x100003A6C, symSize: 0x1A0 }
-  - { offsetInCU: 0x41, offset: 0x958, size: 0x8, addend: 0x0, symName: _ft_puthex, symObjAddr: 0x0, symBinAddr: 0x100003A6C, symSize: 0x1A0 }
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x100003684, symSize: 0xDC }
+  - { offsetInCU: 0x48, offset: 0x48, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x100003684, symSize: 0xDC }
+  - { offsetInCU: 0x26, offset: 0xBE, size: 0x8, addend: 0x0, symName: _ft_unsigned_putnbr, symObjAddr: 0x0, symBinAddr: 0x100003760, symSize: 0x10C }
+  - { offsetInCU: 0x33, offset: 0xCB, size: 0x8, addend: 0x0, symName: _ft_unsigned_putnbr, symObjAddr: 0x0, symBinAddr: 0x100003760, symSize: 0x10C }
+  - { offsetInCU: 0x85, offset: 0x11D, size: 0x8, addend: 0x0, symName: _ft_putnbr, symObjAddr: 0x10C, symBinAddr: 0x10000386C, symSize: 0x150 }
+  - { offsetInCU: 0x26, offset: 0x1B1, size: 0x8, addend: 0x0, symName: _format_specifier_printf, symObjAddr: 0x0, symBinAddr: 0x1000039BC, symSize: 0x224 }
+  - { offsetInCU: 0x41, offset: 0x1CC, size: 0x8, addend: 0x0, symName: _format_specifier_printf, symObjAddr: 0x0, symBinAddr: 0x1000039BC, symSize: 0x224 }
+  - { offsetInCU: 0x77, offset: 0x202, size: 0x8, addend: 0x0, symName: _ft_printf, symObjAddr: 0x224, symBinAddr: 0x100003BE0, symSize: 0xBC }
+  - { offsetInCU: 0x26, offset: 0x2A2, size: 0x8, addend: 0x0, symName: _ft_putchar, symObjAddr: 0x0, symBinAddr: 0x100003C9C, symSize: 0x34 }
+  - { offsetInCU: 0x41, offset: 0x2BD, size: 0x8, addend: 0x0, symName: _ft_putchar, symObjAddr: 0x0, symBinAddr: 0x100003C9C, symSize: 0x34 }
+  - { offsetInCU: 0x69, offset: 0x2E5, size: 0x8, addend: 0x0, symName: _ft_putstr, symObjAddr: 0x34, symBinAddr: 0x100003CD0, symSize: 0xA8 }
+  - { offsetInCU: 0x26, offset: 0x34D, size: 0x8, addend: 0x0, symName: _ft_puthex, symObjAddr: 0x0, symBinAddr: 0x100003D78, symSize: 0x1A0 }
+  - { offsetInCU: 0x41, offset: 0x368, size: 0x8, addend: 0x0, symName: _ft_puthex, symObjAddr: 0x0, symBinAddr: 0x100003D78, symSize: 0x1A0 }
 ...

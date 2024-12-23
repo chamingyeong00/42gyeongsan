@@ -21,11 +21,11 @@ int	ft_putchar(char c)
 int	ft_putstr(char *s)
 {
 	int	len;
-	if (!s){//(*s)X 이유
+	if (s == NULL){//(*s)X 이유
 		write(1, "(null)", 6);
 		//ft_putstr("(null)"); //NULL 역참조하면 메모리 접근 오류 발생
 		return (6); //return (ft_putchar("null"));
-	}	
+	}
 	len = 0;
 	while ((*s) != NULL){
 		ft_putchar(*s);
