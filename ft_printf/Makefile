@@ -1,5 +1,5 @@
 NAME = libftprintf.a
-SOURCES = ft_c.s.c ft_d_i_u.c ft_printf.c ft_x_X_p.c main.c
+SOURCES = ft_c_s.c ft_d_i_u.c ft_printf.c ft_x_X_p.c
 OBJECTS = $(SOURCES:.c=.o)
 
 CC = cc
@@ -8,13 +8,13 @@ AR = ar
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
-	$(AR) -rcs $@ $?
+	$(AR) -rcs $@ $(OBJECTS)
 
 %.o: %.c
-	$(CC) -c $?
+	$(CC) -c $< -o $@ # $< 현재 소스 파일
 
 clean:
-	rm -f $(OBJECTS) $(BOBJECTS)
+	rm -f $(OBJECTS)
 
 fclean: clean
 	rm -f $(NAME)
