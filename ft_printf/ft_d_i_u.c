@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int ft_unsigned_putnbr(unsigned int n)
+int	ft_unsigned_putnbr(unsigned int n)
 {
 	unsigned int	len;
 	unsigned int	divisor;
@@ -21,14 +21,15 @@ int ft_unsigned_putnbr(unsigned int n)
 	divisor = 1;
 	len = 0;
 	num = n;
-	if (num == 0){ //n이 0일때
+	if (num == 0)
 		return (ft_putchar('0'));
-    }
-	while (num >= 10){
+	while (num >= 10)
+	{
 		divisor *= 10;
-		num = num/10;
+		num = num / 10;
 	}
-	while (divisor > 0){
+	while (divisor > 0)
+	{
 		ft_putchar((n / divisor) + '0');
 		len += 1;
 		n %= divisor;
@@ -37,35 +38,28 @@ int ft_unsigned_putnbr(unsigned int n)
 	return (len);
 }
 
-int ft_putnbr(int num)
+int	ft_putnbr(int num)
 {
 	int				len;
 	unsigned int	divisor;
-	unsigned int 	n;
+	unsigned int	n;
 
 	divisor = 1;
 	len = 0;
-	if (num == 0){ //n이 0일때
+	if (num == 0)
 		return (ft_putchar('0'));
-    }
-	if (num < 0){
-		len += 1;
-		n = -num;
-		ft_putchar('-');
-	}
-	else
-		n = num;
-	while (n >= 10){
-		divisor *= 10;
-		n = n/10;
-	}
 	if (num < 0)
+	{
 		n = -num;
+		len += ft_putchar('-');
+	}
 	else
 		n = num;
-	while (divisor > 0){
-		ft_putchar((n / divisor) + '0');
-		len += 1;
+	while (n / divisor >= 10)
+		divisor *= 10;
+	while (divisor > 0)
+	{
+		len += ft_putchar((n / divisor) + '0');
 		n %= divisor;
 		divisor /= 10;
 	}

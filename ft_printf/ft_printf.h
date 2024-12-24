@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTH_H
-# define  FT_PRINT_H
-#include <unistd.h>
-#include <stdarg.h>
-#include <stdlib.h>
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
+
+# include <stdarg.h>
+# include <unistd.h>
 
 int		ft_putchar(char c);
 int		ft_putstr(char *s);
@@ -22,7 +22,7 @@ int		ft_puthex(const char *format, unsigned int num);
 int		ft_long_puthex(unsigned long long num);
 int		ft_putnbr(int num);
 int		ft_unsigned_putnbr(unsigned int n);
-int 	format_specifier_printf(const char *format, va_list ap);
+int		format_specifier_printf(const char *format, va_list ap);
 int		ft_printf(const char *format, ...);
 
 #endif
