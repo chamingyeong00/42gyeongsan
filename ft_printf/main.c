@@ -81,8 +81,7 @@ int main()
     , &c_ft, &c_sys);
     int ml8 =    ft_printf("!!%d %% %s \n", -123123, emptystring);
     int pl8 =       printf("!!%d %% %s \n", -123123, emptystring);
-    ft_add_checksum(ml8, pl8
-    , &c_ft, &c_sys);
+    ft_add_checksum(ml8, pl8, &c_ft, &c_sys);
     int ml9 =    ft_printf("!!%d %% %s %u %p \n", -123123, emptystring, (unsigned int) 4294967295, emptystring);
     int pl9 =       printf("!!%d %% %s %u %p \n", -123123, emptystring, (unsigned int) 4294967295, emptystring);
     ft_add_checksum(ml9, pl9

@@ -2,6 +2,7 @@
     "files.associations": {
         "ft_printf.h": "c",
         "stddef.h": "c",
-        "limits.h": "c"
+        "limits.h": "c",
+        "stdio.h": "c"
     }
 }

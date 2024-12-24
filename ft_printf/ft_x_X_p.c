@@ -12,19 +12,41 @@
 
 #include "ft_printf.h"
 
-int ft_puthex(const char *format, unsigned long long num)
+int ft_long_puthex(unsigned long long num)
+{
+	char				*base_digits;
+	char				converted_number[64];
+	int					index;
+	unsigned long long	len;
+
+	base_digits = "0123456789abcdef";
+	index = 0;
+	if (num == 0)
+		return (ft_putchar('0'));
+	while(num != 0){
+		converted_number[index++] = num % 16;
+		num = num / 16;
+	}
+	len = index;
+	while(--index >= 0)
+		ft_putchar(base_digits[converted_number[index]]);
+	return (len);
+}
+
+
+int ft_puthex(const char *format, unsigned int num)
 {
 	char			*base_digits1;
 	char			*base_digits2;
 	char			converted_number[64];
 	int				index;
-	unsigned long long				len;
+	unsigned int				len;
 
 	base_digits1 = "0123456789abcdef";
 	base_digits2 = "0123456789ABCDEF";
 	index = 0;
 	if (num == 0)
-		return(ft_putchar('0'));
+		return (ft_putchar('0'));
 	while(num != 0){
 		converted_number[index++] = num % 16;
 		num = num / 16;

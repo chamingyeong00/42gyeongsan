@@ -12,11 +12,11 @@
 
 #include "ft_printf.h"
 
-int ft_unsigned_putnbr(unsigned long long n)
+int ft_unsigned_putnbr(unsigned int n)
 {
-	int			len;
-	long int		divisor;
-	unsigned long long	num;
+	unsigned int	len;
+	unsigned int	divisor;
+	unsigned int	num;
 
 	divisor = 1;
 	len = 0;
@@ -24,11 +24,10 @@ int ft_unsigned_putnbr(unsigned long long n)
 	if (num == 0){ //n이 0일때
 		return (ft_putchar('0'));
     }
-	while (n >= 10){
+	while (num >= 10){
 		divisor *= 10;
-		n = n/10;
+		num = num/10;
 	}
-	num = n;
 	while (divisor > 0){
 		ft_putchar((n / divisor) + '0');
 		len += 1;
@@ -40,8 +39,8 @@ int ft_unsigned_putnbr(unsigned long long n)
 
 int ft_putnbr(int num)
 {
-	int			len;
-	long int		divisor;
+	int				len;
+	unsigned int	divisor;
 	unsigned int 	n;
 
 	divisor = 1;
@@ -60,7 +59,10 @@ int ft_putnbr(int num)
 		divisor *= 10;
 		n = n/10;
 	}
-	n = num;
+	if (num < 0)
+		n = -num;
+	else
+		n = num;
 	while (divisor > 0){
 		ft_putchar((n / divisor) + '0');
 		len += 1;

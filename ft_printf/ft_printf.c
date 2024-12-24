@@ -21,15 +21,18 @@ int format_specifier_printf(const char *format, va_list ap){
 		return (ft_putstr((va_arg(ap, char *)))); //문자열 처리
 	}
 	else if (*format == 'p'){ //p는 0x 접두사를 포함한 소문자 16진수 출력
+		unsigned long long *ptr = va_arg(ap, unsigned long long);
+		if (ptr == 0)
+			return(ft_putstr("(nil)"));
 		ft_putstr("0x");
-		return (2 + ft_puthex("x", (va_arg(ap, unsigned long long))));
+		return (2 +  ft_long_puthex(ptr));
 	}
 	else if (*format == 'd' || *format == 'i')
 		return (ft_putnbr((va_arg(ap, int)))); //int 부호 있는 정수 처리
 	else if (*format == 'u')
-		return (ft_unsigned_putnbr((va_arg(ap, unsigned long long)))); //주소 값
+		return (ft_unsigned_putnbr((va_arg(ap, unsigned int)))); //u : unsigned int llu : unsigned long long
 	else if (*format == 'x' || *format == 'X')
-		return (ft_puthex(format, (va_arg(ap, unsigned long long)))); //int X -> unsinged int 16진수 처리
+		return (ft_puthex(format, (va_arg(ap, unsigned int)))); //int X -> unsinged int 16진수 처리
 	else if (*format == '%')
 		return (ft_putchar('%'));
 	else {//포멧 검증 실패시
