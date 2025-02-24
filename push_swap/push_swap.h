@@ -30,7 +30,7 @@ int		ft_error(void);
 int		is_valid(char *argv_point);
 int		is_duplicate(long *arr, int cnt, long num);
 int		is_sorted(t_stack **head, int cnt);
-int		handle_numbers(char **argv_res, long *seen_numbers);
+int		handle_numbers(char **argv_res, long *seen_numbers, int *seen_cnt);
 t_stack	*make_new_node(int num);
 int		is_check_error(int argc, char **argv, int cnt);
 void	insert_stack(t_stack **a_stack, int num);

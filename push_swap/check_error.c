@@ -11,8 +11,9 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <stdio.h>
 
-int	handle_numbers(char **argv_res, long *seen_numbers)
+int	handle_numbers(char **argv_res, long *seen_numbers, int *seen_cnt)
 {
 	int		j;
 	long	num;
@@ -25,9 +26,10 @@ int	handle_numbers(char **argv_res, long *seen_numbers)
 			return (1);
 		if (!is_valid(argv_res[j]))
 			return (1);
-		if (is_duplicate(seen_numbers, j, num))
+		if (is_duplicate(seen_numbers, *seen_cnt, num))
 			return (1);
 		seen_numbers[j] = num;
+		(*seen_cnt)++;
 		j++;
 	}
 	return (0);
@@ -39,8 +41,13 @@ int	is_check_error(int argc, char **argv, int cnt)
 	int		i;
 	char	**argv_res;
 	long	*seen_numbers;
+	int		*seen_cnt;
 
 	i = 1;
+	seen_cnt = (int *)malloc(sizeof(int)*1);
+	if (!seen_cnt)
+    	return (1);
+	*seen_cnt = 0;
 	seen_numbers = (long *)malloc(sizeof(long) * ((size_t)cnt));
 	if (!seen_numbers)
 		return (1);
@@ -50,7 +57,7 @@ int	is_check_error(int argc, char **argv, int cnt)
 		argv_res = ft_split(argv[i], ' ');
 		if (!argv_res)
 			return (free(seen_numbers), 1);
-		if (handle_numbers(argv_res, seen_numbers))
+		if (handle_numbers(argv_res, seen_numbers, seen_cnt))
 		{
 			free(seen_numbers);
 			tmp_free(argv_res);
@@ -60,5 +67,6 @@ int	is_check_error(int argc, char **argv, int cnt)
 		i++;
 	}
 	free(seen_numbers);
+	free(seen_cnt);
 	return (0);
 }
