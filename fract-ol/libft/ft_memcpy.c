@@ -3,34 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oahieiev <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mcombeau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/31 18:46:25 by oahieiev          #+#    #+#             */
-/*   Updated: 2017/10/31 18:46:45 by oahieiev         ###   ########.fr       */
+/*   Created: 2021/11/23 15:02:13 by mcombeau          #+#    #+#             */
+/*   Updated: 2021/12/02 15:26:40 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/*
+	DESCRIPTION :
+	The function ft_memcpy copies n bytes from memory area src to memory
+	area dst.
+	Does not account for memory overlaps. Use ft_memmove if the memory areas
+	overlap or might overlap.
+
+	RETURN VALUE :
+	A pointer to dst. NULL if src and dst are both NULL.
+*/
+
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	size_t			i;
-	size_t			m;
-	unsigned long	*w_ptr[2];
-	unsigned char	*p_dst;
-	unsigned char	*p_src;
+	char		*dp;
+	const char	*sp;
 
-	w_ptr[0] = (unsigned long *)dst;
-	w_ptr[1] = (unsigned long *)src;
-	i = 0;
-	m = n / sizeof(long);
-	while (i++ < m)
-		*((w_ptr[0])++) = *((w_ptr[1])++);
-	p_dst = (unsigned char *)w_ptr[0];
-	p_src = (unsigned char *)w_ptr[1];
-	i = 0;
-	m = n % sizeof(long);
-	while (i++ < m)
-		*(p_dst++) = *(p_src++);
+	if (!dst && !src)
+		return (0);
+	if (n == 0 || (dst == src))
+		return (dst);
+	dp = (char *)dst;
+	sp = (const char *)src;
+	while (n != 0)
+	{
+		if (*dp != *sp)
+			*dp = *sp;
+		dp++;
+		sp++;
+		n--;
+	}
 	return (dst);
 }

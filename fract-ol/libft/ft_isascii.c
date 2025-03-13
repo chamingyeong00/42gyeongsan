@@ -3,16 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oahieiev <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mcombeau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/31 18:50:08 by oahieiev          #+#    #+#             */
-/*   Updated: 2017/10/31 18:50:21 by oahieiev         ###   ########.fr       */
+/*   Created: 2021/11/22 13:48:51 by mcombeau          #+#    #+#             */
+/*   Updated: 2021/12/02 14:38:16 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+/*
+	DESCRIPTION :
+	The function ft_isascii checks whether c is an ascii character or not.
 
-int		ft_isascii(int c)
+	RESULT VALUE :
+	Non-zero if c is ascii, zero if not.
+*/
+
+int	ft_isascii(int c)
 {
-	return (c >= 0 && c <= 0177);
+	if (c == 0)
+		return (1);
+	if (c > 0 && c <= 127)
+		return (c);
+	return (0);
 }

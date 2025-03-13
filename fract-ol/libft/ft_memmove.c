@@ -3,38 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oahieiev <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mcombeau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/31 18:45:08 by oahieiev          #+#    #+#             */
-/*   Updated: 2017/10/31 18:45:10 by oahieiev         ###   ########.fr       */
+/*   Created: 2021/11/23 15:57:19 by mcombeau          #+#    #+#             */
+/*   Updated: 2021/12/02 16:48:38 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/*
+	DESCRIPTION :
+	The function ft_memmove copies n bytes from memory area src to memory
+	area dst. The memory areas may overlap: if the dst pointer is found
+	to be between the src pointer and the index n, copying will be done
+	back to front to prevent data being modified before being copied.
+	Otherwise it will be done front to back	to preserve data.
+
+	RETURN VALUE :
+	A pointer to dst.
+*/
+
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	unsigned char	*p_dst;
-	unsigned char	*p_src;
+	char		*dp;
+	const char	*sp;
 
-	p_dst = (unsigned char *)dst;
-	p_src = (unsigned char *)src;
-	if (p_src < p_dst)
-	{
-		p_src = p_src + len - 1;
-		p_dst = p_dst + len - 1;
-		while (len > 0)
-		{
-			*(p_dst--) = *(p_src--);
-			len--;
-		}
-	}
+	if (src == dst)
+		return (dst);
+	dp = (char *)dst;
+	sp = (const char *)src;
+	if (sp < dp && sp + len > dp)
+		while (len--)
+			*(dp + len) = *(sp + len);
 	else
 	{
-		while (len > 0)
+		while (len--)
 		{
-			*(p_dst++) = *(p_src++);
-			len--;
+			*dp = *sp;
+			sp++;
+			dp++;
 		}
 	}
 	return (dst);

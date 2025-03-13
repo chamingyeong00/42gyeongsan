@@ -3,23 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oahieiev <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/02 21:06:47 by oahieiev          #+#    #+#             */
-/*   Updated: 2017/11/02 21:06:49 by oahieiev         ###   ########.fr       */
+/*   Created: 2021/12/01 20:05:57 by mcombeau          #+#    #+#             */
+/*   Updated: 2021/12/05 13:10:41 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstdelone(t_list **alst, void (*del)(void*, size_t))
+/*
+	DESCRIPTION :
+	The function ft_lstdelone deletes the content of a list node with the
+	function passed as parameter before freeing the memory of the node.
+
+	RETURN VALUE :
+	None.
+*/
+
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	if (!alst || !del)
+	if (!lst)
 		return ;
-	if ((*alst)->content)
-	{
-		del((*alst)->content, (*alst)->content_size);
-		free(*alst);
-		*alst = NULL;
-	}
+	if (del)
+		(del)(lst->content);
+	free(lst);
 }

@@ -3,35 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oahieiev <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mcombeau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/31 18:27:57 by oahieiev          #+#    #+#             */
-/*   Updated: 2017/10/31 18:27:59 by oahieiev         ###   ########.fr       */
+/*   Created: 2021/11/24 15:14:19 by mcombeau          #+#    #+#             */
+/*   Updated: 2021/12/02 16:13:28 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcat(char *dst, const char *src, size_t size)
-{
-	size_t	len;
-	size_t	dst_len;
-	char	*s;
+/*
+	DESCRIPTION :
+	The function ft_strlcat appends the given string src to the end of 
+	dst. It will append at most dstsize - ft_strlen(dst) - 1 and 
+	nul-terminate the result.
 
-	s = (char *)src;
-	dst_len = ft_strlen(dst);
-	dst_len = (size < dst_len) ? size : dst_len;
-	if (!(len = size - dst_len))
-		return (dst_len + ft_strlen(s));
-	while (*s)
+	Note : space for the terminating \0 character must be included in dstsize.
+
+	RETURN VALUE :
+	The total length of the string that it tried to create : the initial
+	length of dst + the length of src, with the goal to facilitate
+	truncaction detection.
+*/
+
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
+{
+	size_t	i;
+	size_t	j;
+	size_t	d_size;
+	size_t	s_size;
+
+	d_size = ft_strlen(dst);
+	s_size = ft_strlen(src);
+	if (dstsize <= d_size)
+		return (dstsize + s_size);
+	i = d_size;
+	j = 0;
+	while ((i + j) < (dstsize - 1) && src[j] != '\0')
 	{
-		if (len != 1)
-		{
-			*(dst++ + dst_len) = *s;
-			len--;
-		}
-		s++;
+		dst[i + j] = src[j];
+		j++;
 	}
-	*(dst + dst_len) = '\0';
-	return (dst_len + ft_strlen(src));
+	dst[i + j] = '\0';
+	return (d_size + s_size);
 }

@@ -1,59 +1,88 @@
-NAME		= fractol
-CC			= gcc
-SRCDIR		= ./src/
-INCLDIR		= ./inc/
-SRC			= $(addprefix $(SRCDIR), \
-					main.c \
-					controls.c \
-					draw.c \
-					functions.c \
-					complex.c \
-					complex2.c \
-					complex3.c \
-					colors.c)
-OBJDIR		= ./obj/
-OBJ			= $(SRC:$(SRCDIR)%.c=$(OBJDIR)%.o)
-FLAGS		= -Wall -Wextra -Werror -O3
+#Program name
+NAME	= fractol
 
-MLX			= -lmlx
-ifeq ($(shell uname -s), Linux)
-  MLXDIR	= ./minilibx/
-  MLX		+= -lX11 -lXext -L$(MLXDIR)
-  MLXLIB	= $(addprefix $(MLXDIR), libmlx.a)
-  MULTHREAD	= -pthread
-else
-  MLX		+= -framework OpenGL -framework AppKit
-endif
+# Compiler
+CC		= gcc
+CFLAGS	= -Werror -Wextra -Wall
 
-LIBFT_DIR	= ./libft/
-LIBFT		= $(addprefix $(LIBFT_DIR), libft.a)
-LIBFT_FLAGS	= -lft -L$(LIBFT_DIR)
-MATHLIB		= -lm
-INCL		= $(addprefix $(INCLDIR), fractol.h complex.h)
+# Minilibx
+MLX_PATH	= minilibx-linux/
+MLX_NAME	= libmlx.a
+MLX			= $(MLX_PATH)$(MLX_NAME)
 
-.PHONY: all clean fclean re
+# Libft
+LIBFT_PATH	= libft/
+LIBFT_NAME	= libft.a
+LIBFT		= $(LIBFT_PATH)$(LIBFT_NAME)
 
-all: $(NAME)
+# Includes
+INC			=	-I ./includes/\
+				-I ./libft/\
+				-I ./minilibx-linux/
 
-$(OBJDIR)%.o: $(SRCDIR)%.c $(INCL)
-	@printf "\tCompiling $<\n"
-	@mkdir -p $(OBJDIR)
-	@gcc $(FLAGS) -c $< -o $@ -I$(INCLDIR)
+# Sources
+SRC_PATH	=	src/
+SRC			=	fractol.c \
+				initialization.c \
+				utils.c \
+				events.c \
+				render.c \
+				color.c \
+				parse_args.c \
+				help_msg.c \
+				fractal_sets/mandelbrot.c \
+				fractal_sets/julia.c \
+				fractal_sets/burning_ship.c \
+				fractal_sets/tricorn.c \
+				fractal_sets/mandelbox.c \
+				color_schemes/color_interpolated.c \
+				color_schemes/color_special.c \
+				color_schemes/color_striped.c
+SRCS		= $(addprefix $(SRC_PATH), $(SRC))
 
-$(NAME): $(OBJ) $(LIBFT) $(MLXLIB)
-	@gcc $(OBJ) -o $(NAME) $(MLX) $(MATHLIB) $(MULTHREAD) $(LIBFT_FLAGS)
-	@printf "Done\n"
+# Objects
+OBJ_PATH	= obj/
+OBJ			= $(SRC:.c=.o)
+OBJS		= $(addprefix $(OBJ_PATH), $(OBJ))
+
+all: $(MLX) $(LIBFT) $(NAME)
+
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c
+	@$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+
+$(OBJS): $(OBJ_PATH)
+
+$(OBJ_PATH):
+	@mkdir $(OBJ_PATH)
+	@mkdir $(OBJ_PATH)fractal_sets/
+	@mkdir $(OBJ_PATH)color_schemes/
+
+$(MLX):
+	@echo "Making MiniLibX..."
+	@make -sC $(MLX_PATH)
+
 $(LIBFT):
-	@printf "\tCompiling libft.a...\n"
-	@make -sC $(LIBFT_DIR)
-$(MLXLIB):
-	@printf "\tCompiling libmlx.a\n"
-	@make -sC $(MLXDIR)
+	@echo "Making libft..."
+	@make -sC $(LIBFT_PATH)
+
+$(NAME): $(OBJS)
+	@echo "Compiling fractol..."
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(MLX) $(LIBFT) $(INC) -lXext -lX11 -lm
+	@echo "Fractol ready."
+
+bonus: all
+
 clean:
-	@rm -rf $(OBJDIR)
-	@printf "\tObject files removed\n"
+	@echo "Removing .o object files..."
+	@rm -rf $(OBJ_PATH)
+	@make clean -C $(MLX_PATH)
+	@make clean -C $(LIBFT_PATH)
+
 fclean: clean
+	@echo "Removing fractol..."
 	@rm -f $(NAME)
-	@printf "\tExecutable '$(NAME)' removed\n"
-	@make -sC $(LIBFT_DIR) fclean
+	@rm -f $(LIBFT_PATH)$(LIBFT_NAME)
+
 re: fclean all
+
+.PHONY: all re clean fclean

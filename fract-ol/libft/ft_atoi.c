@@ -3,37 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oahieiev <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mcombeau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/31 18:15:45 by oahieiev          #+#    #+#             */
-/*   Updated: 2017/11/01 20:14:43 by oahieiev         ###   ########.fr       */
+/*   Created: 2021/11/24 18:06:58 by mcombeau          #+#    #+#             */
+/*   Updated: 2021/12/02 16:48:58 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_atoi(const char *str)
-{
-	int				sign;
-	long long int	res;
+/*
+	DESCRIPTION :
+	The function ft_atoi converts a string into an int.
 
-	res = 0;
-	sign = 1;
-	while (ft_isdelim(*str))
-		str++;
-	if (*str == '-')
-		sign = -1;
-	if (*str == '-' || *str == '+')
-		str++;
-	while (*str && ft_isdigit(*str))
+	RETURN VALUE :
+	The converted int.
+*/
+
+int	ft_atoi(const char *str)
+{
+	int	num;
+	int	isneg;
+	int	i;
+
+	num = 0;
+	isneg = 1;
+	i = 0;
+	while (str[i] && (str[i] == ' ' || str[i] == '\t'
+			|| str[i] == '\n' || str[i] == '\r'
+			|| str[i] == '\v' || str[i] == '\f'))
+		i++;
+	if (str[i] == '+')
+		i++;
+	else if (str[i] == '-')
 	{
-		if ((res >= 922337203685477580) && ((*str - '0') > 7) && sign == 1)
-			return (-1);
-		else if ((res >= 922337203685477580) && ((*str - '0') > 8)
-			&& sign == -1)
-			return (0);
-		res = (res * 10) + (*str - '0');
-		str++;
+		isneg *= -1;
+		i++;
 	}
-	return (sign * res);
+	while (ft_isdigit(str[i]))
+	{
+		num = (num * 10) + (str[i] - '0');
+		i++;
+	}
+	return (num * isneg);
 }

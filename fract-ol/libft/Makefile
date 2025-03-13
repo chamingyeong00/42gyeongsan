@@ -1,68 +1,91 @@
-NAME	= libft.a
-SRC		= ft_memcpy.c	ft_putstr.c		\
-		ft_striteri.c	ft_strnstr.c	\
-		ft_atoi.c		ft_lstadd.c		\
-		ft_memdel.c		ft_putstr_fd.c	\
-		ft_strjoin.c	ft_strrchr.c	\
-		ft_bzero.c		ft_lstdel.c		\
-		ft_memmove.c	ft_strcat.c		\
-		ft_strlcat.c	ft_strsplit.c	\
-		ft_isalnum.c	ft_lstdelone.c	\
-		ft_memset.c		ft_strchr.c		\
-		ft_strlen.c		ft_strstr.c		\
-		ft_isalpha.c	ft_lstiter.c	\
-		ft_pow.c		ft_strclr.c		\
-		ft_strmap.c		ft_strsub.c		\
-		ft_isascii.c	ft_lstmap.c		\
-		ft_putchar.c	ft_strcmp.c		\
-		ft_strmapi.c	ft_strtrim.c	\
-		ft_isblank.c	ft_lstnew.c		\
-		ft_putchar_fd.c	ft_strcpy.c		\
-		ft_strncat.c	ft_tolower.c	\
-		ft_isdelim.c	ft_memalloc.c	\
-		ft_putendl.c	ft_strdel.c		\
-		ft_strncmp.c	ft_toupper.c	\
-		ft_isdigit.c	ft_memccpy.c	\
-		ft_putendl_fd.c	ft_strlcpy.c	\
-		ft_strdup.c		ft_strncpy.c	\
-		ft_isprint.c	ft_memchr.c		\
-		ft_putnbr.c		ft_putunbr.c	\
-		ft_strequ.c		ft_strndup.c	\
-		ft_strnequ.c	ft_itoa.c		\
-		ft_memcmp.c		ft_putnbr_fd.c	\
-		ft_striter.c	ft_strnew.c		\
-		ft_lstfold.c	ft_itoa_base.c	\
-		get_next_line.c	ft_atoi_base.c	\
-		ft_lstreverse.c	ft_strpos.c		\
-		ft_atof.c		ft_getopt.c		\
-		ft_upperstr.c
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mcombeau <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/11/22 13:48:30 by mcombeau          #+#    #+#              #
+#    Updated: 2021/12/02 13:26:19 by mcombeau         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-.PHONY: all clean fclean re
-
+NAME = libft.a
 CC = gcc
-CFLAGS = -fPIC -Wall -Wextra -Werror
-ifdef DEBUG
-	CFLAGS += -g
-endif
+CFLAGS = -Wall -Werror -Wextra -g3
+AR = ar rcs
+SRC = ft_isalpha \
+	ft_isdigit \
+	ft_isalnum \
+	ft_isascii \
+	ft_isprint \
+	ft_isspace \
+	ft_ishexdigit \
+	ft_strlen \
+	ft_memset \
+	ft_bzero \
+	ft_memcpy \
+	ft_memmove \
+	ft_strlcpy \
+	ft_strlcat \
+	ft_toupper \
+	ft_tolower \
+	ft_strchr \
+	ft_strrchr \
+	ft_strncmp \
+	ft_memchr \
+	ft_memcmp \
+	ft_strnstr \
+	ft_atoi \
+	ft_calloc \
+	ft_strdup \
+	ft_substr \
+	ft_strjoin \
+	ft_strtrim \
+	ft_split \
+	ft_itoa \
+	ft_strmapi \
+	ft_striteri \
+	ft_putchar_fd \
+	ft_putstr_fd \
+	ft_putendl_fd \
+	ft_putnbr_fd
+BONUS_SRC = ft_lstnew \
+	ft_lstadd_front \
+	ft_lstsize \
+	ft_lstlast \
+	ft_lstadd_back \
+	ft_lstdelone \
+	ft_lstclear \
+	ft_lstiter \
+	ft_lstmap  
 
-OBJ=$(SRC:%.c=%.o)
+SRCS = $(addsuffix .c, $(SRC))
+OBJS = $(addsuffix .o, $(SRC))
+BONUS_SRCS = $(addsuffix .c, $(BONUS_SRC))
+BONUS_OBJS = $(addsuffix .o, $(BONUS_SRC))
 
-$(NAME): $(OBJ)
-	@ar rc $@ $^
-	@ranlib $@
-	@printf '\t\t$@ is ready              \n'
+.c.o: $(SRCS) $(BONUS_SRCS)
+	@$(CC) $(CFLAGS) -c -o $@ $<
 
-%.o: %.c
-	@printf '\t\tCompiling $(NAME) sources\r'
-	@$(CC) $(CFLAGS) -o $@ -c $^
+$(NAME): $(OBJS)
+	@$(AR) $@ $^
+	@echo "Libft ready."
+
+bonus: $(OBJS) $(BONUS_OBJS)
+	@$(AR) $(NAME) $^
+	@echo "Libft + bonus ready."
 
 all: $(NAME)
 
 clean:
-	@rm -f $(OBJ)
-	@printf '\t$(NAME) object files deleted\n'
+	@rm -f *.o
+	@echo "Libft: removed .o object files."
 
 fclean: clean
 	@rm -f $(NAME)
-	@printf '\t$(NAME) deleted\n'
-re: fclean all
+	@echo "Libft: removed libft.a file."
+
+re: clean all
+
+.PHONY: all clean fclean re bonus

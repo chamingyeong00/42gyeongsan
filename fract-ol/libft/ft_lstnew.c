@@ -3,25 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oahieiev <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/02 21:07:02 by oahieiev          #+#    #+#             */
-/*   Updated: 2017/11/02 21:07:04 by oahieiev         ###   ########.fr       */
+/*   Created: 2021/11/30 17:28:58 by mcombeau          #+#    #+#             */
+/*   Updated: 2021/12/02 15:13:17 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(void const *content, size_t content_size)
-{
-	t_list	*new;
+/*
+	DESCRIPTION :
+	The function ft_lstnew allocates memory for a new list node and 
+	initializes its content to the value passed as parameter, before
+	setting its next node to NULL. 
 
-	if (!(new = (t_list *)malloc(sizeof(t_list))))
+	RESULT VALUE :
+	The new list ode.
+*/
+
+t_list	*ft_lstnew(void *content)
+{
+	t_list	*list;
+
+	list = malloc(sizeof(t_list));
+	if (!list)
 		return (NULL);
-	new->content = (content) ? malloc(content_size) : NULL;
-	new->content = (content) ?
-		ft_memcpy(new->content, content, content_size) : NULL;
-	new->content_size = (content) ? content_size : 0;
-	new->next = NULL;
-	return (new);
+	list->content = content;
+	list->next = NULL;
+	return (list);
 }

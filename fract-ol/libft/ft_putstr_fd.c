@@ -3,19 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oahieiev <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/31 20:30:50 by oahieiev          #+#    #+#             */
-/*   Updated: 2017/11/11 16:09:03 by oahieiev         ###   ########.fr       */
+/*   Created: 2021/11/28 05:42:28 by mcombeau          #+#    #+#             */
+/*   Updated: 2021/12/03 16:23:10 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr_fd(char const *s, int fd)
+/*
+	DESCRIPTION :
+	The function ft_putstr_fd writes the given string to the given
+	file descriptor.
+
+	RETURN VALUE :
+	None.
+*/
+
+void	ft_putstr_fd(char *s, int fd)
 {
-	if (!s || fd < 0)
+	if (!s)
 		return ;
-	while (*s)
-		(void)(write(fd, &(*s++), 1) + 2);
+	while (*s != '\0')
+	{
+		ft_putchar_fd(*s, fd);
+		s++;
+	}
 }

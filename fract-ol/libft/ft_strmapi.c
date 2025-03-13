@@ -3,30 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oahieiev <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/02 21:09:37 by oahieiev          #+#    #+#             */
-/*   Updated: 2017/11/02 21:09:39 by oahieiev         ###   ########.fr       */
+/*   Created: 2021/11/28 04:35:39 by mcombeau          #+#    #+#             */
+/*   Updated: 2021/12/02 16:21:12 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/*
+	DESRIPTION :
+	The function ft_strmapi applies the given function f to each character
+	in the given string s and allocates sufficient memory to store the
+	resulting new string. 
+
+	RETURN VALUE :
+	A pointer to the newly created string. NULL if the memory allocation
+	fails.	
+*/
+
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	char			*new;
-	size_t			s_len;
+	char			*str;
 	unsigned int	i;
 
-	if (!s)
-		return (0);
-	s_len = ft_strlen(s);
-	new = (char *)malloc(sizeof(char) * (s_len + 1));
-	if (!new)
-		return (0);
+	if (!s || (!s && !f))
+		return (ft_strdup(""));
+	else if (!f)
+		return (ft_strdup(s));
+	str = ft_strdup(s);
+	if (!str)
+		return (NULL);
 	i = 0;
-	while (*s)
-		*new++ = f(i++, *s++);
-	*new = '\0';
-	return (new - s_len);
+	while (s[i])
+	{
+		str[i] = (*f)(i, s[i]);
+		i++;
+	}
+	return (str);
 }

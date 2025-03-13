@@ -92,11 +92,9 @@ void	last_child(t_data *all, int *fd, char *argv[], char *envp[])
 void	pipe_maker(t_data *all, char *argv[], char *envp[])
 {
 	pid_t	pid1;
-	pid_t	pid2;
 	int		fd[2];
 
 	pipe(fd); // 파이프 생성 fd[0], fd[1]
-	pid2 = -1;
 	pid1 = fork(); // 자식 프로세스1 생성
 	if (pid1 == -1)
 		just_error("pid error");
@@ -115,8 +113,7 @@ void	pipe_maker(t_data *all, char *argv[], char *envp[])
 			// fd[0]은 다른 프로세스에서 전달받은 데이터를 read하는 파이프 입구가 되고 fd[1]은 다른 프로세스로 전달할 데이터를 write 하는 파이프 출구가 된다
 			close(fd[0]);
 			close(fd[1]); // 자식간의 통신을 위해 부모 프로세스는 파이프의 fd를 닫아줍니다.
-			waitpid(pid1, NULL, 0);
-			waitpid(pid2, NULL, 0); // 부모 프로세스는 fd값을 닫은 상태에서 자식 프로세스가 끝날 때 까지 대기
+			waitpid(pid1, NULL, 0);// 부모 프로세스는 fd값을 닫은 상태에서 자식 프로세스가 끝날 때 까지 대기
 		}
 	}
 }

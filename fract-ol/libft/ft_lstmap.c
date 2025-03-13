@@ -3,37 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oahieiev <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/02 21:07:45 by oahieiev          #+#    #+#             */
-/*   Updated: 2017/11/02 21:17:57 by oahieiev         ###   ########.fr       */
+/*   Created: 2021/12/01 20:34:19 by mcombeau          #+#    #+#             */
+/*   Updated: 2021/12/04 13:13:40 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list		*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
-{
-	t_list	*fresh_h;
-	t_list	*fresh;
-	t_list	*tmp;
+/*
+	DESCRIPTION :
+	The function ft_lstmap creates a new list from a given list  by 
+	applying the function passed as parameter to the original list. If
+	the memory allocation fails for any node in the new list, the new list
+	will be deleted with the function passed as parameter and its memory
+	will be freed.
 
-	if (!lst || !f)
+	RETURN VALUE :
+	The new list containing the new values if a functon was provided.
+	A new copy of the list if no function was provided.
+	NULL if the memory allocation failed.
+*/
+
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+{
+	t_list	*newlst;
+	t_list	*node;
+
+	if (!lst)
 		return (NULL);
-	tmp = f(lst);
-	if (!(fresh = ft_lstnew(tmp->content, tmp->content_size)))
-		return (NULL);
-	fresh_h = fresh;
-	while (lst->next)
+	newlst = NULL;
+	node = NULL;
+	while (lst)
 	{
-		lst = lst->next;
-		tmp = f(lst);
-		if (!(fresh->next = ft_lstnew(tmp->content, tmp->content_size)))
+		if (!f)
+			node = ft_lstnew(lst->content);
+		else
+			node = ft_lstnew(f(lst->content));
+		if (!node)
 		{
-			ft_lstdel(&fresh_h, &ft_bzero);
+			ft_lstclear(&newlst, del);
 			return (NULL);
 		}
-		fresh = fresh->next;
+		ft_lstadd_back(&newlst, node);
+		lst = lst->next;
 	}
-	return (fresh_h);
+	return (newlst);
 }

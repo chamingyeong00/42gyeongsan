@@ -3,16 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oahieiev <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mcombeau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/31 18:51:53 by oahieiev          #+#    #+#             */
-/*   Updated: 2017/10/31 18:51:54 by oahieiev         ###   ########.fr       */
+/*   Created: 2021/11/22 13:50:28 by mcombeau          #+#    #+#             */
+/*   Updated: 2021/12/02 14:36:38 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+/*
+	DESCRIPTION :
+	The function ft_isalpha checks whether c is alphabetic or not.
 
-int		ft_isalpha(int c)
+	RETURN VALUE :
+	Non-zero if c is alphabetic, zero if not.
+*/
+
+int	ft_isalpha(int c)
 {
-	return ((c >= 0101 && c <= 0132) || (c >= 0141 && c <= 0172));
+	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
+		return (c);
+	return (0);
 }
