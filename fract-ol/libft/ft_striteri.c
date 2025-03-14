@@ -3,32 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: micha <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/28 05:10:58 by mcombeau          #+#    #+#             */
-/*   Updated: 2021/12/02 16:00:25 by mcombeau         ###   ########.fr       */
+/*   Created: 2024/10/12 15:15:15 by micha             #+#    #+#             */
+/*   Updated: 2024/10/12 15:15:17 by micha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/*
-	DESCRIPTION :
-	The function ft_striteri applies the given function f to each
-	character in the given string s.
-
-	RETURN VALUE :
-	None.
-*/
-
 void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	int	i;
+	unsigned int	len;
+	unsigned int	i;
 
+	i = 0;
 	if (!s || !f)
 		return ;
-	i = 0;
-	while (s[i])
+	len = ft_strlen(s);
+	while (i < len)
 	{
 		(*f)(i, &s[i]);
 		i++;

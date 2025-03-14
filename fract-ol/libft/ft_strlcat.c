@@ -3,47 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcombeau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: micha <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/24 15:14:19 by mcombeau          #+#    #+#             */
-/*   Updated: 2021/12/02 16:13:28 by mcombeau         ###   ########.fr       */
+/*   Created: 2024/10/01 17:36:49 by micha             #+#    #+#             */
+/*   Updated: 2024/10/01 17:36:50 by micha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/*
-	DESCRIPTION :
-	The function ft_strlcat appends the given string src to the end of 
-	dst. It will append at most dstsize - ft_strlen(dst) - 1 and 
-	nul-terminate the result.
-
-	Note : space for the terminating \0 character must be included in dstsize.
-
-	RETURN VALUE :
-	The total length of the string that it tried to create : the initial
-	length of dst + the length of src, with the goal to facilitate
-	truncaction detection.
-*/
-
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
+size_t	ft_strlcat(char *dest, const char *src, size_t size)
 {
 	size_t	i;
-	size_t	j;
-	size_t	d_size;
-	size_t	s_size;
+	size_t	len_dest;
+	size_t	len_src;
 
-	d_size = ft_strlen(dst);
-	s_size = ft_strlen(src);
-	if (dstsize <= d_size)
-		return (dstsize + s_size);
-	i = d_size;
-	j = 0;
-	while ((i + j) < (dstsize - 1) && src[j] != '\0')
+	i = 0;
+	len_dest = ft_strlen(dest);
+	len_src = ft_strlen(src);
+	if (len_dest >= size)
+		return (size + len_src);
+	while ((src[i] != '\0') && (len_dest + i + 1) < size)
 	{
-		dst[i + j] = src[j];
-		j++;
+		dest[len_dest + i] = src[i];
+		i++;
 	}
-	dst[i + j] = '\0';
-	return (d_size + s_size);
+	dest[len_dest + i] = '\0';
+	return (len_dest + len_src);
 }

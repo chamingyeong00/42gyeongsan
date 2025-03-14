@@ -3,47 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcombeau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: micha <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/23 15:57:19 by mcombeau          #+#    #+#             */
-/*   Updated: 2021/12/02 16:48:38 by mcombeau         ###   ########.fr       */
+/*   Created: 2024/10/01 15:44:33 by micha             #+#    #+#             */
+/*   Updated: 2024/10/01 15:44:34 by micha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/*
-	DESCRIPTION :
-	The function ft_memmove copies n bytes from memory area src to memory
-	area dst. The memory areas may overlap: if the dst pointer is found
-	to be between the src pointer and the index n, copying will be done
-	back to front to prevent data being modified before being copied.
-	Otherwise it will be done front to back	to preserve data.
-
-	RETURN VALUE :
-	A pointer to dst.
-*/
-
-void	*ft_memmove(void *dst, const void *src, size_t len)
+void	*ft_memmove(void *dest, void *src, size_t count)
 {
-	char		*dp;
-	const char	*sp;
+	unsigned char	*dest_ptr;
+	unsigned char	*src_ptr;
+	size_t			i;
 
-	if (src == dst)
-		return (dst);
-	dp = (char *)dst;
-	sp = (const char *)src;
-	if (sp < dp && sp + len > dp)
-		while (len--)
-			*(dp + len) = *(sp + len);
-	else
+	i = -1;
+	if (!dest && !src)
+		return (0);
+	dest_ptr = (unsigned char *)dest;
+	src_ptr = (unsigned char *)src;
+	if (src < dest)
 	{
-		while (len--)
-		{
-			*dp = *sp;
-			sp++;
-			dp++;
-		}
+		while (++i < count)
+			dest_ptr[(count - 1) - i] = src_ptr[(count - 1) - i];
 	}
-	return (dst);
+	else if (src >= dest)
+	{
+		while (++i < count)
+			dest_ptr[i] = src_ptr[i];
+	}
+	return (dest);
 }

@@ -17,6 +17,7 @@
 # include "libft.h"
 # include "keys.h"
 # include <stdio.h>
+# include <stdlib.h>
 # include <math.h>
 
 /*  Dimensions	*/
@@ -93,5 +94,6 @@ void	clean_exit(int error_code, t_fractol *f);
 int		msg(char *str1, char *str2, int errno);
 void	help_msg(t_fractol *f);
 void	print_controls(void);
-
+int		ft_isspace(char c);
+int		ft_ishexdigit(char c);
 #endif

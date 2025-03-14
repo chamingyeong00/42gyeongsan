@@ -3,26 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcombeau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: micha <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/22 13:52:40 by mcombeau          #+#    #+#             */
-/*   Updated: 2021/12/02 16:49:56 by mcombeau         ###   ########.fr       */
+/*   Created: 2024/10/01 13:08:45 by micha             #+#    #+#             */
+/*   Updated: 2024/10/01 13:08:48 by micha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-/*
-	DESCRIPTION :
-	The function ft_isalnum checks whether the value of c is alphanumeric.
-
-	RETURN VALUE :
-	Non-zero if c is alphanumeric, zero if not.
-*/
-
-int	ft_isalnum(int c)
+int	ft_isalnum(int ch)
 {
-	if (ft_isalpha(c) || ft_isdigit(c))
-		return (c);
+	if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') \
+		|| (ch >= '0' && ch <= '9'))
+	{
+		return (1);
+	}
 	return (0);
 }

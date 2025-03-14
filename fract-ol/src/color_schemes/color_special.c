@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   color_special.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: micha <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/17 17:10:18 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/04/18 15:44:55 by mcombeau         ###   ########.fr       */
+/*   Created: 2025/03/15 01:31:16 by micha             #+#    #+#             */
+/*   Updated: 2025/03/15 01:31:18 by micha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 /*
 	Notice: These color scheme functions were created purely by accident,

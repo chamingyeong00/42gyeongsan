@@ -3,134 +3,106 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: micha <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/27 17:56:03 by mcombeau          #+#    #+#             */
-/*   Updated: 2021/12/08 12:14:01 by mcombeau         ###   ########.fr       */
+/*   Created: 2024/10/12 14:20:27 by micha             #+#    #+#             */
+/*   Updated: 2024/10/12 14:20:29 by micha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <unistd.h>
+#include <stdlib.h>
 
-/*
-	DESCRIPTION :
-	The function ft_split allocates and copies an array of strings by 
-	splitting the given string s using the given separator c.
-
-	RETURN VALUE :
-	An array of strings resulting from the split. NULL if the memory
-	allocation fails.
-*/
-
-static int	ft_count_words(const char *s, char c)
+int	is_sep(char s, char c)
 {
-	int	words;
-	int	i;
-
-	words = 0;
-	i = 0;
-	while (s[i])
-	{
-		if (i == 0 && s[i] != c)
-			words++;
-		if (i > 0 && s[i] != c && s[i - 1] == c)
-			words++;
-		i++;
-	}
-	return (words);
+	if (s == c)
+		return (1);
+	return (0);
 }
 
-static char	**ft_malloc_strs(char **strs, const char *s, char c)
+char	*str_dup(char *str, char c)
 {
-	int	count;
-	int	i;
-	int	x;
+	int		i;
+	char	*res;
+	int		len;
 
-	count = 0;
 	i = 0;
-	x = 0;
-	while (s[i])
+	len = 0;
+	while (str[len] != '\0' && !is_sep(str[len], c))
+		len++;
+	res = (char *)malloc((len + 1) * sizeof(char));
+	if (res == 0)
+		return (0);
+	while (i < len)
 	{
-		if (s[i] != c)
-			count++;
-		if ((s[i] == c && i > 0 && s[i - 1] != c)
-			|| (s[i] != c && s[i + 1] == '\0'))
+		res[i] = str[i];
+		i++;
+	}
+	res[i] = '\0';
+	return (res);
+}
+
+int	world_count(char *s, char c)
+{
+	int	i;
+	int	cnt;
+
+	i = 0;
+	cnt = 0;
+	while (s[i] != '\0')
+	{
+		if (!is_sep(s[i], c))
 		{
-			strs[x] = malloc(sizeof(char) * (count + 1));
-			if (!strs[x])
-				return (NULL);
-			count = 0;
-			x++;
+			cnt++;
+			while (!is_sep(s[i], c) && s[i] != '\0')
+				i++;
 		}
-		i++;
+		else
+			i++;
 	}
-	return (strs);
+	return (cnt);
 }
 
-static char	**ft_cpy_strs(char **strs, const char *s, char c)
+char	**fill_result(char *s, char c, char **result, int k)
 {
-	int	i;
-	int	x;
-	int	y;
+	int		i;
 
 	i = 0;
-	x = 0;
-	y = 0;
-	while (s[i])
+	while (*s != '\0')
 	{
-		if (s[i] != c)
-			strs[x][y++] = s[i];
-		if (s[i] != c && s[i + 1] == '\0')
-			strs[x][y] = '\0';
-		if (s[i] == c && i > 0 && s[i - 1] != c)
+		if (!is_sep(*s, c))
 		{
-			strs[x][y] = '\0';
-			x++;
-			y = 0;
+			result[i++] = str_dup(s, c);
+			if (!result[i - 1])
+			{
+				k = 0;
+				while (k < i)
+				{
+					free(result[k++]);
+				}
+				return (0);
+			}
+			while (!is_sep (*s, c) && *s != '\0')
+				s++;
 		}
-		i++;
+		else
+			s++;
 	}
-	return (strs);
+	result[i] = NULL;
+	return (result);
 }
 
-static char	**ft_merror(char **strs)
+char	**ft_split(char *s, char c)
 {
-	int	i;
+	int		len;
+	int		k;
+	char	**result;
 
-	i = 0;
-	while (strs[i])
-	{
-		free(strs[i]);
-		strs[i] = NULL;
-		i++;
-	}
-	free(strs);
-	return (NULL);
-}
-
-char	**ft_split(char const *s, char c)
-{
-	char	**strs;
-	int		wordcount;
-
-	if (!s)
-	{
-		strs = malloc(sizeof(char) * 1);
-		if (!strs)
-			return (NULL);
-		*strs = NULL;
-		return (strs);
-	}
-	wordcount = ft_count_words(s, c);
-	strs = malloc(sizeof(*strs) * (wordcount + 1));
-	if (!strs)
-		return (NULL);
-	if (ft_malloc_strs(strs, s, c))
-	{
-		ft_cpy_strs(strs, s, c);
-		strs[wordcount] = NULL;
-	}
-	else
-		strs = ft_merror(strs);
-	return (strs);
+	k = 0;
+	len = world_count(s, c);
+	result = (char **)malloc((len + 1) * sizeof(char *));
+	if (result == 0)
+		return (0);
+	result = fill_result(s, c, result, k);
+	return (result);
 }

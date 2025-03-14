@@ -3,30 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcombeau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: micha <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/22 13:51:11 by mcombeau          #+#    #+#             */
-/*   Updated: 2021/12/02 16:17:56 by mcombeau         ###   ########.fr       */
+/*   Created: 2024/10/01 13:42:35 by micha             #+#    #+#             */
+/*   Updated: 2024/10/01 13:42:37 by micha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/*
-	DESCRIPTION :
-	The function ft_strlen measures the length of the given string str,
-	excluding the terminating \0 character.
-
-	RETURN VALUE :
-	The number of bytes in the string str.
-*/
-
 size_t	ft_strlen(const char *str)
 {
-	size_t	i;
+	unsigned int	i;
+	unsigned int	cnt;
 
 	i = 0;
+	cnt = 0;
 	while (str[i] != '\0')
+	{
+		cnt++;
 		i++;
-	return (i);
+	}
+	return (cnt);
 }

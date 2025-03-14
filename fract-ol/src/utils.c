@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: micha <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/08 16:21:53 by mcombeau          #+#    #+#             */
-/*   Updated: 2022/04/18 13:54:16 by mcombeau         ###   ########.fr       */
+/*   Created: 2025/03/15 01:30:24 by micha             #+#    #+#             */
+/*   Updated: 2025/03/15 01:30:25 by micha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "fractol.h"
 
@@ -59,4 +60,16 @@ int	end_fractol(t_fractol *mlx)
 {
 	clean_exit(0, mlx);
 	return (0);
+}
+
+int	ft_isspace(char c)
+{
+	return (c == ' ' || c == '\t' || c == '\n'
+		|| c == '\v' || c == '\f' || c == '\r');
+}
+
+int	ft_ishexdigit(char c)
+{
+	return ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f')
+		|| (c >= 'A' && c <= 'F'));
 }

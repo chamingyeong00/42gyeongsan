@@ -3,76 +3,81 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: micha <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/27 18:04:16 by mcombeau          #+#    #+#             */
-/*   Updated: 2021/12/08 12:12:23 by mcombeau         ###   ########.fr       */
+/*   Created: 2024/10/12 14:33:41 by micha             #+#    #+#             */
+/*   Updated: 2024/10/12 14:33:50 by micha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
+#include <stdio.h>
 
-/*
-	DESCRIPTION :
-	The function ft_itoa converts the integer n into a string of characters.
-
-	RESULT VALUE :
-	The string of the converted integer.
-*/
-
-static size_t	ft_itoa_len(long num)
+int	ft_len(unsigned int num)
 {
-	size_t	len;
+	int		cnt;
 
-	len = 0;
+	cnt = 0;
 	if (num == 0)
-		return (1);
-	if (num < 0)
+		cnt++;
+	while (num > 0)
 	{
-		len++;
-		num = -num;
+		num = num / 10;
+		(cnt)++;
 	}
-	while (num >= 1)
-	{
-		len++;
-		num /= 10;
-	}
-	return (len);
+	return (cnt);
 }
 
-static char	*ft_num_to_str(long num, char *str, size_t len)
+void	check_mark(char *res, int *len, int *i, int n)
 {
-	str = ft_calloc(len + 1, sizeof(char));
-	if (str == NULL)
-		return (NULL);
-	if (num < 0)
+	if (n < 0)
 	{
-		str[0] = '-';
-		num = -num;
+		res[0] = '-';
+		(*len)++;
+		*i = *len;
 	}
-	len--;
-	while (len)
+	else
 	{
-		str[len] = (num % 10) + '0';
-		num /= 10;
-		len--;
+		(*i) = *len;
 	}
-	if (str[0] != '-')
-		str[0] = (num % 10) + '0';
-	return (str);
+}
+
+char	*allocate(int n, int len)
+{
+	char	*res;
+
+	if (n < 0)
+		res = (char *)malloc(len * sizeof(char) + 2);
+	else
+		res = (char *)malloc(len * sizeof(char) + 1);
+	return (res);
 }
 
 char	*ft_itoa(int n)
 {
-	long	num;
-	size_t	len;
-	char	*str;
+	int				len;
+	char			*res;
+	int				i;
+	unsigned int	num;
 
-	num = n;
-	len = ft_itoa_len(num);
-	str = 0;
-	str = ft_num_to_str(num, str, len);
-	if (!str)
-		return (NULL);
-	return (str);
+	if (n < 0)
+		num = -n;
+	else
+		num = n;
+	len = ft_len(num);
+	res = allocate(n, len);
+	if (!res)
+		return (0);
+	check_mark(res, &len, &i, n);
+	if (res == 0)
+		return (0);
+	res[i--] = '\0';
+	while (i >= 0 && res[i] != '-')
+	{
+		res[i] = ((num % 10) + '0');
+		i--;
+		num = num / 10;
+	}
+	return (res);
 }
