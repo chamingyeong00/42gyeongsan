@@ -29,7 +29,7 @@ int	check(int *board, int col, int row)
 
 void	solve(int *board, int col, int n)
 {
-	if(col == n)
+	if (col == n)
 	{
 		print(board, n);
 		return ;

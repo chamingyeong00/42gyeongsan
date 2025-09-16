@@ -14,7 +14,6 @@ int	ft_strncmp(char *s, char *ss, int n)
 		return 0;
 }
 
-
 int main(int ac, char **av)
 {
 	char *buff = malloc(1000000);
