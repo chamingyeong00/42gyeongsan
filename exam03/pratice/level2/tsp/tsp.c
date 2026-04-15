@@ -18,7 +18,7 @@ float cal_path(int a, int b)
     float num = 0;
     num = (city[a].x - city[b].x)*(city[a].x - city[b].x) + (city[a].y - city[b].y)*(city[a].y - city[b].y);
 
-    return sqrtf(num);
+    return sqrt(num);
 }
 
 void check_path()
